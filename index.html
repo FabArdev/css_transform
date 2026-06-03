@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Transforms — Guía Interactiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- ─── SIDEBAR ─── -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h1>CSS Transforms</h1>
+    <p>// guía interactiva</p>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">intro</div>
+    <a class="nav-item active" onclick="navTo('hero')">¿Qué es transform?</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">translate</div>
+    <a class="nav-item" onclick="navTo('translate')">translate()</a>
+    <a class="nav-item" onclick="navTo('translateXY')">translateX / Y</a>
+    <a class="nav-item" onclick="navTo('translateZ')">translateZ / 3d <span class="tag tag-3d">3D</span></a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">scale</div>
+    <a class="nav-item" onclick="navTo('scale')">scale()</a>
+    <a class="nav-item" onclick="navTo('scaleXY')">scaleX / Y</a>
+    <a class="nav-item" onclick="navTo('scaleZ')">scaleZ / 3d <span class="tag tag-3d">3D</span></a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">rotate</div>
+    <a class="nav-item" onclick="navTo('rotate')">rotate()</a>
+    <a class="nav-item" onclick="navTo('rotateXY')">rotateX / Y <span class="tag tag-3d">3D</span></a>
+    <a class="nav-item" onclick="navTo('rotate3d')">rotate3d() <span class="tag tag-3d">3D</span></a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">skew</div>
+    <a class="nav-item" onclick="navTo('skew')">skew()</a>
+    <a class="nav-item" onclick="navTo('skewXY')">skewX / Y</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">matrix</div>
+    <a class="nav-item" onclick="navTo('matrix')">matrix()</a>
+    <a class="nav-item" onclick="navTo('matrix3d')">matrix3d() <span class="tag tag-3d">3D</span></a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">propiedades</div>
+    <a class="nav-item" onclick="navTo('transform-origin')">transform-origin <span class="tag tag-prop">prop</span></a>
+    <a class="nav-item" onclick="navTo('transform-style')">transform-style <span class="tag tag-prop">prop</span></a>
+    <a class="nav-item" onclick="navTo('perspective')">perspective <span class="tag tag-prop">prop</span></a>
+    <a class="nav-item" onclick="navTo('perspective-origin')">perspective-origin <span class="tag tag-prop">prop</span></a>
+    <a class="nav-item" onclick="navTo('backface')">backface-visibility <span class="tag tag-prop">prop</span></a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">extra</div>
+    <a class="nav-item" onclick="navTo('combos')">combinaciones ✦</a>
+  </div>
+</nav>
+
+<!-- ─── MAIN CONTENT ─── -->
+<main id="main">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-eyebrow">// css property</div>
+    <h2><span class="hero-accent">transform</span><br>en profundidad</h2>
+    <p>Mueve, escala, rota e inclina elementos en 2D y 3D. Sin afectar el flujo del documento. Sin mover píxeles reales — solo transformando el sistema de coordenadas.</p>
+    <div class="hero-demo">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TRANSLATE
+  ═══════════════════════════════════ -->
+  <div class="section-divider">translate</div>
+
+  <section class="section" id="translate">
+    <div class="section-header">
+      <div class="section-tag">// función 2D</div>
+      <h2><code>translate()</code></h2>
+      <p class="section-desc">Desplaza el elemento en el eje X y/o Y. El elemento ocupa el mismo espacio en el flujo — solo su imagen se mueve visualmente.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-green">No afecta flujo</span>
+      <span class="pill pill-yellow">Acepta px, %, em, rem, vh, vw</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">translate(x, y)</span>;<br>
+      <span class="prop">transform</span>: <span class="val">translate(50px)</span>; <span class="comment">/* solo X */</span><br>
+      <span class="prop">transform</span>: <span class="val">translate(50px, -20px)</span>; <span class="comment">/* X e Y */</span><br>
+      <span class="prop">transform</span>: <span class="val">translate(50%, 0)</span>; <span class="comment">/* relativo al propio elemento */</span>
+    </div>
+    <div id="pg-translate" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('translate')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('translate')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-translate" spellcheck="false">/* Edita cualquier propiedad CSS */
+.elemento {
+  transform: translate(60px, -30px);
+
+  width: 70px;
+  height: 70px;
+  background: #7c6aff;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-translate">
+              <button class="shape-btn active" onclick="setShape('translate','square')" title="Cuadrado">▪</button>
+              <button class="shape-btn" onclick="setShape('translate','circle')" title="Círculo">●</button>
+              <button class="shape-btn" onclick="setShape('translate','text')" title="Texto">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-translate">
+          <div class="preview-ghost" id="ghost-translate" style="width:70px;height:70px;background:rgba(124,106,255,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-translate" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:translate(60px,-30px)"></div>
+          <span class="result-label" id="label-translate">transform: translate(60px, -30px)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variantes -->
+    <div style="margin-top:1.5rem">
+      <div class="section-tag" style="margin-bottom:0.8rem">// variantes relacionadas</div>
+      <div class="variants-grid">
+        <div class="variant-card">
+          <div class="variant-header">translateX(<em>x</em>)
+            <span style="color:var(--text3);font-size:0.6rem">eje horizontal</span>
+          </div>
+          <div class="variant-preview">
+            <div class="preview-ghost" style="width:36px;height:36px;background:rgba(124,106,255,0.1);border-radius:6px;position:absolute;"></div>
+            <div class="variant-obj" style="transform:translateX(40px);background:var(--accent)"></div>
+          </div>
+          <div class="variant-desc">Solo mueve en X. Equivale a translate(x, 0).</div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-header">translateY(<em>y</em>)
+            <span style="color:var(--text3);font-size:0.6rem">eje vertical</span>
+          </div>
+          <div class="variant-preview">
+            <div class="preview-ghost" style="width:36px;height:36px;background:rgba(255,106,176,0.1);border-radius:6px;position:absolute;"></div>
+            <div class="variant-obj" style="transform:translateY(28px);background:var(--accent2)"></div>
+          </div>
+          <div class="variant-desc">Solo mueve en Y. Equivale a translate(0, y).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="translateZ">
+    <div class="section-header">
+      <div class="section-tag">// funciones 3D</div>
+      <h2><code>translateZ()</code> &amp; <code>translate3d()</code></h2>
+      <p class="section-desc">Trasladan en el eje Z (profundidad). Requieren que el padre tenga <code>perspective</code> para verse el efecto. A más Z positivo → más cerca; Z negativo → más lejos.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-green">3D</span>
+      <span class="pill pill-blue">Necesita perspective en padre</span>
+      <span class="pill pill-yellow">Activa GPU compositing</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">translateZ(100px)</span>; <span class="comment">/* acerca */</span><br>
+      <span class="prop">transform</span>: <span class="val">translateZ(-100px)</span>; <span class="comment">/* aleja */</span><br>
+      <span class="prop">transform</span>: <span class="val">translate3d(x, y, z)</span>;<br>
+      <span class="prop">transform</span>: <span class="val">translate3d(20px, 0, 80px)</span>;
+    </div>
+    <div id="pg-translateZ" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('translateZ')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('translateZ')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-translateZ" spellcheck="false">/* El padre ya tiene perspective: 400px */
+.elemento {
+  transform: translateZ(80px);
+
+  width: 70px;
+  height: 70px;
+  background: #6af0c8;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-translateZ">
+              <button class="shape-btn active" onclick="setShape('translateZ','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('translateZ','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('translateZ','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-translateZ" style="perspective:400px">
+          <div class="preview-obj" id="obj-translateZ" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:translateZ(80px)"></div>
+          <span class="result-label" id="label-translateZ">transform: translateZ(80px)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- translateXY standalone playground -->
+  <section class="section" id="translateXY">
+    <div class="section-header">
+      <div class="section-tag">// funciones 2D</div>
+      <h2><code>translateX()</code> &amp; <code>translateY()</code></h2>
+      <p class="section-desc">Versiones de un solo eje. <code>translateX(n)</code> mueve solo en horizontal; <code>translateY(n)</code> solo en vertical. Son exactamente equivalentes a <code>translate(n, 0)</code> y <code>translate(0, n)</code>.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-green">Un solo eje</span>
+      <span class="pill pill-yellow">px / % / em / rem</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">translateX(80px)</span>;  <span class="comment">/* mueve a la derecha */</span><br>
+      <span class="prop">transform</span>: <span class="val">translateX(-50%)</span>; <span class="comment">/* relativo al propio elemento */</span><br>
+      <span class="prop">transform</span>: <span class="val">translateY(40px)</span>;  <span class="comment">/* baja */</span><br>
+      <span class="prop">transform</span>: <span class="val">translateY(-100%)</span>;<span class="comment">/* sube el 100% de su alto */</span>
+    </div>
+    <div id="pg-translateXY" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('translateXY')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('translateXY')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-translateXY" spellcheck="false">/* Prueba: translateY(-50px) */
+.elemento {
+  transform: translateX(80px);
+
+  width: 65px;
+  height: 65px;
+  background: #ff6ab0;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-translateXY">
+              <button class="shape-btn active" onclick="setShape('translateXY','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('translateXY','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('translateXY','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-translateXY">
+          <div class="preview-ghost" id="ghost-translateXY" style="width:65px;height:65px;background:rgba(255,106,176,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-translateXY" style="width:65px;height:65px;background:#ff6ab0;border-radius:8px;transform:translateX(80px)"></div>
+          <span class="result-label" id="label-translateXY">transform: translateX(80px)</span>
+        </div>
+      </div>
+    </div>
+    <!-- Diagrama de ejes -->
+    <div style="margin-top:1.2rem;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem">
+      <p style="font-family:var(--mono);font-size:0.65rem;color:var(--text3);margin-bottom:0.8rem;letter-spacing:0.1em">// ejes de coordenadas CSS</p>
+      <div style="display:flex;gap:2.5rem;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <span style="font-family:var(--mono);font-size:0.72rem;color:var(--accent)">eje X →</span>
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2)">positivo = derecha</span>
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2)">negativo = izquierda</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <span style="font-family:var(--mono);font-size:0.72rem;color:var(--accent2)">eje Y ↓</span>
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2)">positivo = abajo</span>
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2)">negativo = arriba</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <span style="font-family:var(--mono);font-size:0.72rem;color:var(--accent3)">eje Z ⊙</span>
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2)">positivo = hacia vos</span>
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text2)">negativo = al fondo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SCALE
+  ═══════════════════════════════════ -->
+  <div class="section-divider">scale</div>
+
+  <section class="section" id="scale">
+    <div class="section-header">
+      <div class="section-tag">// función 2D</div>
+      <h2><code>scale()</code></h2>
+      <p class="section-desc">Escala el elemento desde su <code>transform-origin</code>. Un valor de <code>1</code> es tamaño original, <code>2</code> = doble, <code>0.5</code> = mitad. Valores negativos reflejan el elemento.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-pink">Valores negativos reflejan</span>
+      <span class="pill pill-green">Sin unidades (factor)</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">scale(factor)</span>; <span class="comment">/* igual en X e Y */</span><br>
+      <span class="prop">transform</span>: <span class="val">scale(1.5)</span>; <span class="comment">/* 150% */</span><br>
+      <span class="prop">transform</span>: <span class="val">scale(sx, sy)</span>; <span class="comment">/* X e Y distintos */</span><br>
+      <span class="prop">transform</span>: <span class="val">scale(-1, 1)</span>; <span class="comment">/* espejo horizontal */</span>
+    </div>
+    <div id="pg-scale" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('scale')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('scale')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-scale" spellcheck="false">/* Prueba scale(-1, 1) para espejo */
+.elemento {
+  transform: scale(1.6);
+
+  width: 60px;
+  height: 60px;
+  background: #ff6ab0;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-scale">
+              <button class="shape-btn active" onclick="setShape('scale','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('scale','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('scale','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-scale">
+          <div class="preview-ghost" id="ghost-scale" style="width:60px;height:60px;background:rgba(255,106,176,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-scale" style="width:60px;height:60px;background:#ff6ab0;border-radius:8px;transform:scale(1.6)"></div>
+          <span class="result-label" id="label-scale">transform: scale(1.6)</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem">
+      <div class="section-tag" style="margin-bottom:0.8rem">// variantes</div>
+      <div class="variants-grid">
+        <div class="variant-card">
+          <div class="variant-header">scaleX(<em>sx</em>)<span style="color:var(--text3);font-size:0.6rem">solo horizontal</span></div>
+          <div class="variant-preview">
+            <div class="variant-obj" style="transform:scaleX(2.2);background:var(--accent)"></div>
+          </div>
+          <div class="variant-desc">Estira/comprime solo en el eje X. scaleX(2) → doble de ancho.</div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-header">scaleY(<em>sy</em>)<span style="color:var(--text3);font-size:0.6rem">solo vertical</span></div>
+          <div class="variant-preview">
+            <div class="variant-obj" style="transform:scaleY(2);background:var(--accent2)"></div>
+          </div>
+          <div class="variant-desc">Estira/comprime solo en el eje Y. scaleY(0.5) → mitad de alto.</div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-header">scaleZ / scale3d<span class="tag tag-3d" style="margin-left:0.4rem">3D</span></div>
+          <div class="variant-preview" style="perspective:300px">
+            <div class="variant-obj" style="transform:rotateX(40deg) scaleZ(1.5);background:var(--accent3)"></div>
+          </div>
+          <div class="variant-desc">Escala en el eje Z. Solo visible combinado con rotación 3D.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- scaleXY playground -->
+  <section class="section" id="scaleXY">
+    <div class="section-header">
+      <div class="section-tag">// funciones 2D</div>
+      <h2><code>scaleX()</code> &amp; <code>scaleY()</code></h2>
+      <p class="section-desc">Escalan independientemente en un solo eje. <code>scaleX(-1)</code> produce un espejo horizontal; <code>scaleY(-1)</code> un espejo vertical. Muy usados para efectos de flip en hover.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-pink">Negativo = espejo</span>
+      <span class="pill pill-green">Sin unidades (factor)</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">scaleX(2)</span>;    <span class="comment">/* doble de ancho */</span><br>
+      <span class="prop">transform</span>: <span class="val">scaleX(0.5)</span>;  <span class="comment">/* mitad de ancho */</span><br>
+      <span class="prop">transform</span>: <span class="val">scaleX(-1)</span>;   <span class="comment">/* espejo horizontal */</span><br>
+      <span class="prop">transform</span>: <span class="val">scaleY(1.5)</span>;  <span class="comment">/* 150% de alto */</span><br>
+      <span class="prop">transform</span>: <span class="val">scaleY(-1)</span>;   <span class="comment">/* espejo vertical */</span>
+    </div>
+    <div id="pg-scaleXY" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('scaleXY')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('scaleXY')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-scaleXY" spellcheck="false">/* Prueba: scaleX(-1) para espejo */
+.elemento {
+  transform: scaleX(2);
+
+  width: 55px;
+  height: 55px;
+  background: #ffd06a;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-scaleXY">
+              <button class="shape-btn active" onclick="setShape('scaleXY','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('scaleXY','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('scaleXY','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-scaleXY">
+          <div class="preview-ghost" id="ghost-scaleXY" style="width:55px;height:55px;background:rgba(255,208,106,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-scaleXY" style="width:55px;height:55px;background:#ffd06a;border-radius:8px;transform:scaleX(2)"></div>
+          <span class="result-label" id="label-scaleXY">transform: scaleX(2)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- scaleZ / scale3d playground -->
+  <section class="section" id="scaleZ">
+    <div class="section-header">
+      <div class="section-tag">// funciones 3D</div>
+      <h2><code>scaleZ()</code> &amp; <code>scale3d()</code></h2>
+      <p class="section-desc"><code>scaleZ()</code> escala en profundidad, pero solo se percibe combinado con <code>rotateX()</code> o <code>rotateY()</code>. <code>scale3d(sx, sy, sz)</code> combina los tres ejes en una sola función.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-green">3D</span>
+      <span class="pill pill-blue">Solo visible con rotación 3D</span>
+      <span class="pill pill-yellow">Necesita perspective</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">scaleZ(2)</span>;              <span class="comment">/* escala eje Z */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotateX(45deg) scaleZ(2)</span>;<span class="comment">/* visible en 3D */</span><br>
+      <span class="prop">transform</span>: <span class="val">scale3d(sx, sy, sz)</span>;<br>
+      <span class="prop">transform</span>: <span class="val">scale3d(1.5, 0.8, 2)</span>;
+    </div>
+    <div id="pg-scaleZ" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('scaleZ')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('scaleZ')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-scaleZ" spellcheck="false">/* scaleZ se ve con rotateX */
+.elemento {
+  transform: rotateX(50deg) scaleZ(2);
+
+  width: 65px;
+  height: 65px;
+  background: #6af0c8;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-scaleZ">
+              <button class="shape-btn active" onclick="setShape('scaleZ','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('scaleZ','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('scaleZ','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-scaleZ" style="perspective:400px">
+          <div class="preview-obj" id="obj-scaleZ" style="width:65px;height:65px;background:#6af0c8;border-radius:8px;transform:rotateX(50deg) scaleZ(2)"></div>
+          <span class="result-label" id="label-scaleZ">transform: rotateX(50deg) scaleZ(2)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       ROTATE
+  ═══════════════════════════════════ -->
+  <div class="section-divider">rotate</div>
+
+  <section class="section" id="rotate">
+    <div class="section-header">
+      <div class="section-tag">// función 2D</div>
+      <h2><code>rotate()</code></h2>
+      <p class="section-desc">Rota el elemento en sentido horario. Usa grados (<code>deg</code>), vueltas (<code>turn</code>), o radianes (<code>rad</code>). El centro de rotación lo define <code>transform-origin</code>.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-yellow">deg / turn / rad</span>
+      <span class="pill pill-pink">Horario = positivo</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">rotate(45deg)</span>;<br>
+      <span class="prop">transform</span>: <span class="val">rotate(0.25turn)</span>; <span class="comment">/* 90° */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotate(-90deg)</span>; <span class="comment">/* antihorario */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotate(1.5707rad)</span>; <span class="comment">/* π/2 = 90° */</span>
+    </div>
+    <div id="pg-rotate" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('rotate')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('rotate')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-rotate" spellcheck="false">/* Prueba: rotate(0.125turn) */
+.elemento {
+  transform: rotate(45deg);
+
+  width: 65px;
+  height: 65px;
+  background: #ffd06a;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-rotate">
+              <button class="shape-btn active" onclick="setShape('rotate','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('rotate','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('rotate','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-rotate">
+          <div class="preview-ghost" id="ghost-rotate" style="width:65px;height:65px;background:rgba(255,208,106,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-rotate" style="width:65px;height:65px;background:#ffd06a;border-radius:8px;transform:rotate(45deg)"></div>
+          <span class="result-label" id="label-rotate">transform: rotate(45deg)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rotateXY">
+    <div class="section-header">
+      <div class="section-tag">// funciones 3D</div>
+      <h2><code>rotateX()</code> &amp; <code>rotateY()</code></h2>
+      <p class="section-desc">Giran el elemento alrededor de los ejes X (vertical flip) o Y (horizontal flip). Necesitan <code>perspective</code> en el padre para verse en 3D real.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-green">3D</span>
+      <span class="pill pill-blue">Necesita perspective</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">rotateX(45deg)</span>; <span class="comment">/* voltea hacia atrás */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotateY(60deg)</span>; <span class="comment">/* gira a la derecha */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotateZ(30deg)</span>; <span class="comment">/* igual que rotate() */</span>
+    </div>
+    <div id="pg-rotateXY" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('rotateXY')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('rotateXY')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-rotateXY" spellcheck="false">/* Prueba rotateX(60deg) */
+.elemento {
+  transform: rotateY(50deg);
+
+  width: 70px;
+  height: 70px;
+  background: #6af0c8;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-rotateXY">
+              <button class="shape-btn active" onclick="setShape('rotateXY','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('rotateXY','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('rotateXY','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-rotateXY" style="perspective:400px">
+          <div class="preview-obj" id="obj-rotateXY" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:rotateY(50deg)"></div>
+          <span class="result-label" id="label-rotateXY">transform: rotateY(50deg)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rotate3d">
+    <div class="section-header">
+      <div class="section-tag">// función 3D avanzada</div>
+      <h2><code>rotate3d()</code></h2>
+      <p class="section-desc">Rota alrededor de un vector arbitrario definido por <code>(x, y, z)</code>. El vector indica el eje; el cuarto parámetro es el ángulo. Potente pero conceptualmente más complejo.</p>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">rotate3d(x, y, z, angle)</span>;<br>
+      <span class="prop">transform</span>: <span class="val">rotate3d(1, 0, 0, 45deg)</span>; <span class="comment">/* = rotateX(45deg) */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotate3d(1, 1, 0, 45deg)</span>; <span class="comment">/* eje diagonal */</span>
+    </div>
+    <div id="pg-rotate3d" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('rotate3d')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('rotate3d')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-rotate3d" spellcheck="false">/* Vector diagonal (1,1,0) a 45° */
+.elemento {
+  transform: rotate3d(1, 1, 0, 45deg);
+
+  width: 70px;
+  height: 70px;
+  background: #7c6aff;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-rotate3d" style="perspective:400px">
+          <div class="preview-obj" id="obj-rotate3d" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:rotate3d(1,1,0,45deg)"></div>
+          <span class="result-label" id="label-rotate3d">transform: rotate3d(1,1,0,45deg)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SKEW
+  ═══════════════════════════════════ -->
+  <div class="section-divider">skew</div>
+
+  <section class="section" id="skew">
+    <div class="section-header">
+      <div class="section-tag">// función 2D</div>
+      <h2><code>skew()</code></h2>
+      <p class="section-desc">Inclina el elemento a lo largo de los ejes X e Y. Transforma los ángulos rectos en oblicuos — el elemento se "cizalla". Útil para efectos visuales dinámicos.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-pink">Solo grados (deg)</span>
+      <span class="pill pill-yellow">Distorsiona la forma</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">skew(ax)</span>; <span class="comment">/* solo X */</span><br>
+      <span class="prop">transform</span>: <span class="val">skew(ax, ay)</span>; <span class="comment">/* X e Y */</span><br>
+      <span class="prop">transform</span>: <span class="val">skew(20deg, 10deg)</span>;<br>
+      <span class="comment">/* No existe skewZ — solo 2D */</span>
+    </div>
+    <div id="pg-skew" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('skew')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('skew')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-skew" spellcheck="false">/* Prueba: skew(20deg, 10deg) */
+.elemento {
+  transform: skew(20deg);
+
+  width: 80px;
+  height: 60px;
+  background: #ff6ab0;
+  border-radius: 4px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-skew">
+              <button class="shape-btn active" onclick="setShape('skew','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('skew','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('skew','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-skew">
+          <div class="preview-ghost" id="ghost-skew" style="width:80px;height:60px;background:rgba(255,106,176,0.1);border-radius:4px;"></div>
+          <div class="preview-obj" id="obj-skew" style="width:80px;height:60px;background:#ff6ab0;border-radius:4px;transform:skew(20deg)"></div>
+          <span class="result-label" id="label-skew">transform: skew(20deg)</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem">
+      <div class="section-tag" style="margin-bottom:0.8rem">// variantes</div>
+      <div class="variants-grid">
+        <div class="variant-card">
+          <div class="variant-header">skewX(<em>a</em>)<span style="color:var(--text3);font-size:0.6rem">inclina en X</span></div>
+          <div class="variant-preview">
+            <div class="variant-obj" style="transform:skewX(25deg);background:var(--accent)"></div>
+          </div>
+          <div class="variant-desc">Los lados verticales se inclinan. Crea efecto de movimiento horizontal.</div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-header">skewY(<em>a</em>)<span style="color:var(--text3);font-size:0.6rem">inclina en Y</span></div>
+          <div class="variant-preview">
+            <div class="variant-obj" style="transform:skewY(20deg);background:var(--accent4)"></div>
+          </div>
+          <div class="variant-desc">Los lados horizontales se inclinan. Crea efecto de perspectiva vertical.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- skewXY playground -->
+  <section class="section" id="skewXY">
+    <div class="section-header">
+      <div class="section-tag">// funciones 2D</div>
+      <h2><code>skewX()</code> &amp; <code>skewY()</code></h2>
+      <p class="section-desc"><code>skewX()</code> inclina los lados verticales del elemento; <code>skewY()</code> inclina los lados horizontales. Son más predecibles que <code>skew()</code> de dos parámetros porque afectan un solo eje.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-yellow">Solo deg</span>
+      <span class="pill pill-pink">No existe skewZ</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">skewX(30deg)</span>;  <span class="comment">/* inclina lados verticales */</span><br>
+      <span class="prop">transform</span>: <span class="val">skewX(-20deg)</span>; <span class="comment">/* en sentido contrario */</span><br>
+      <span class="prop">transform</span>: <span class="val">skewY(15deg)</span>;  <span class="comment">/* inclina lados horizontales */</span><br>
+      <span class="comment">/* skewX(a) = skew(a, 0) */</span><br>
+      <span class="comment">/* skewY(a) = skew(0, a) */</span>
+    </div>
+    <div id="pg-skewXY" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('skewXY')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('skewXY')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-skewXY" spellcheck="false">/* Prueba: skewY(20deg) */
+.elemento {
+  transform: skewX(30deg);
+
+  width: 75px;
+  height: 60px;
+  background: #7c6aff;
+  border-radius: 4px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-skewXY">
+              <button class="shape-btn active" onclick="setShape('skewXY','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('skewXY','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('skewXY','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-skewXY">
+          <div class="preview-ghost" id="ghost-skewXY" style="width:75px;height:60px;background:rgba(124,106,255,0.1);border-radius:4px;"></div>
+          <div class="preview-obj" id="obj-skewXY" style="width:75px;height:60px;background:#7c6aff;border-radius:4px;transform:skewX(30deg)"></div>
+          <span class="result-label" id="label-skewXY">transform: skewX(30deg)</span>
+        </div>
+      </div>
+    </div>
+    <!-- Nota visual: casos de uso -->
+    <div style="margin-top:1.2rem;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem">
+      <p style="font-family:var(--mono);font-size:0.65rem;color:var(--text3);margin-bottom:0.8rem;letter-spacing:0.1em">// usos comunes de skewX</p>
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+          <div style="width:70px;height:30px;background:var(--accent);transform:skewX(-15deg);border-radius:2px;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:var(--mono);font-size:0.6rem;color:white;transform:skewX(15deg)">BOTÓN</span>
+          </div>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--text3)">botón dinámico</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+          <div style="width:80px;height:28px;background:linear-gradient(90deg,var(--accent2),var(--accent));transform:skewX(-20deg)"></div>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--text3)">divisor diagonal</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+          <div style="font-family:var(--sans);font-size:1.1rem;font-weight:800;color:var(--accent4);transform:skewX(-8deg);letter-spacing:-0.02em">SPEED</div>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--text3)">texto itálico custom</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       MATRIX
+  ═══════════════════════════════════ -->
+  <div class="section-divider">matrix</div>
+
+  <section class="section" id="matrix">
+    <div class="section-header">
+      <div class="section-tag">// función avanzada</div>
+      <h2><code>matrix()</code></h2>
+      <p class="section-desc">Combina <em>todas</em> las transformaciones 2D en una sola matriz de 6 valores. Es lo que el browser compila internamente. Potente pero difícil de escribir a mano — normalmente lo generan herramientas o librerías.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-pink">Forma compilada de todas las transforms</span>
+      <span class="pill pill-yellow">6 parámetros</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">matrix(a, b, c, d, tx, ty)</span>;<br><br>
+      <span class="comment">/* a=scaleX  b=skewY  c=skewX  d=scaleY  tx=translateX  ty=translateY */</span><br><br>
+      <span class="comment">/* Sin transform = identidad: */</span><br>
+      <span class="prop">transform</span>: <span class="val">matrix(1, 0, 0, 1, 0, 0)</span>;<br><br>
+      <span class="comment">/* rotate(45deg) equivale a: */</span><br>
+      <span class="prop">transform</span>: <span class="val">matrix(0.707, 0.707, -0.707, 0.707, 0, 0)</span>;
+    </div>
+    <div id="pg-matrix" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('matrix')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('matrix')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-matrix" spellcheck="false">/* Escala + rotación combinadas */
+.elemento {
+  transform: matrix(1.2, 0.4, -0.4, 1.2, 30, -20);
+
+  width: 65px;
+  height: 65px;
+  background: #7c6aff;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-matrix">
+          <div class="preview-ghost" id="ghost-matrix" style="width:65px;height:65px;background:rgba(124,106,255,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-matrix" style="width:65px;height:65px;background:#7c6aff;border-radius:8px;transform:matrix(1.2,0.4,-0.4,1.2,30,-20)"></div>
+          <span class="result-label" id="label-matrix">transform: matrix(...)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="matrix3d">
+    <div class="section-header">
+      <div class="section-tag">// función 3D avanzada</div>
+      <h2><code>matrix3d()</code></h2>
+      <p class="section-desc">Versión 3D de matrix(): una matriz de 4×4 = 16 valores. Permite cualquier transformación 3D posible. Usado principalmente por librerías de animación (GSAP, Three.js, etc.).</p>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform</span>: <span class="val">matrix3d(</span><br>
+      &nbsp;&nbsp;a1, b1, c1, d1,<br>
+      &nbsp;&nbsp;a2, b2, c2, d2,<br>
+      &nbsp;&nbsp;a3, b3, c3, d3,<br>
+      &nbsp;&nbsp;a4, b4, c4, d4<br>
+      <span class="val">)</span>;<br><br>
+      <span class="comment">/* identidad 3D: */</span><br>
+      <span class="prop">transform</span>: <span class="val">matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)</span>;
+    </div>
+    <div id="pg-matrix3d" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('matrix3d')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('matrix3d')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-matrix3d" spellcheck="false">/* rotateY(40deg) en matrix3d */
+.elemento {
+  transform: matrix3d(
+    0.766,0,0.643,0,
+    0,1,0,0,
+    -0.643,0,0.766,0,
+    0,0,0,1
+  );
+
+  width: 70px;
+  height: 70px;
+  background: #6af0c8;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-matrix3d" style="perspective:500px">
+          <div class="preview-obj" id="obj-matrix3d" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:matrix3d(0.766,0,0.643,0,0,1,0,0,-0.643,0,0.766,0,0,0,0,1)"></div>
+          <span class="result-label" id="label-matrix3d">transform: matrix3d(...)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       PROPIEDADES
+  ═══════════════════════════════════ -->
+  <div class="section-divider">propiedades de transform</div>
+
+  <section class="section" id="transform-origin">
+    <div class="section-header">
+      <div class="section-tag">// propiedad CSS</div>
+      <h2><code>transform-origin</code></h2>
+      <p class="section-desc">Define el punto desde donde se aplica la transformación. Por defecto es el centro (<code>50% 50%</code>). Cambiarlo cambia el comportamiento de rotate, scale y skew.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-yellow">Default: 50% 50%</span>
+      <span class="pill pill-blue">Acepta px, %, keywords</span>
+      <span class="pill pill-green">Afecta rotate, scale, skew</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform-origin</span>: <span class="val">center</span>; <span class="comment">/* default */</span><br>
+      <span class="prop">transform-origin</span>: <span class="val">top left</span>; <span class="comment">/* esquina superior izq */</span><br>
+      <span class="prop">transform-origin</span>: <span class="val">50% 50%</span>; <span class="comment">/* mismo que center */</span><br>
+      <span class="prop">transform-origin</span>: <span class="val">0 0</span>; <span class="comment">/* igual que top left */</span><br>
+      <span class="prop">transform-origin</span>: <span class="val">100% 100%</span>; <span class="comment">/* bottom right */</span>
+    </div>
+    <div id="pg-origin" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('origin')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('origin')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-origin" spellcheck="false">/* Prueba: transform-origin: top left */
+.elemento {
+  transform: rotate(45deg);
+  transform-origin: bottom right;
+
+  width: 70px;
+  height: 70px;
+  background: #ffd06a;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-origin">
+          <div class="preview-ghost" id="ghost-origin" style="width:70px;height:70px;background:rgba(255,208,106,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-origin" style="width:70px;height:70px;background:#ffd06a;border-radius:8px;transform:rotate(45deg);transform-origin:bottom right"></div>
+          <span class="result-label" id="label-origin">transform-origin: bottom right</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="transform-style">
+    <div class="section-header">
+      <div class="section-tag">// propiedad CSS</div>
+      <h2><code>transform-style</code></h2>
+      <p class="section-desc">Controla si los hijos de un elemento 3D mantienen su posición 3D (<code>preserve-3d</code>) o se aplanan en el plano del padre (<code>flat</code>). Crucial para escenas 3D anidadas.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-yellow">flat (default)</span>
+      <span class="pill pill-green">preserve-3d</span>
+      <span class="pill pill-blue">Afecta hijos 3D</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">transform-style</span>: <span class="val">flat</span>; <span class="comment">/* default — hijos se aplanan */</span><br>
+      <span class="prop">transform-style</span>: <span class="val">preserve-3d</span>; <span class="comment">/* hijos mantienen 3D */</span>
+    </div>
+    <div id="pg-tstyle" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('tstyle')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('tstyle')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-tstyle" spellcheck="false">/* Cambia a: transform-style: flat */
+.elemento {
+  transform: rotateY(40deg);
+  transform-style: preserve-3d;
+
+  width: 70px;
+  height: 70px;
+  background: #7c6aff;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-tstyle" style="perspective:400px">
+          <div class="preview-obj" id="obj-tstyle" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:rotateY(40deg);transform-style:preserve-3d"></div>
+          <span class="result-label" id="label-tstyle">transform-style: preserve-3d</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="perspective">
+    <div class="section-header">
+      <div class="section-tag">// propiedad CSS</div>
+      <h2><code>perspective</code></h2>
+      <p class="section-desc">Define la distancia entre el usuario y el plano Z=0. Valores pequeños = perspectiva muy pronunciada (dramática). Valores grandes = perspectiva suave. Se aplica al <strong>padre</strong> del elemento 3D.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-blue">Se aplica al padre</span>
+      <span class="pill pill-pink">Valor menor = más dramático</span>
+      <span class="pill pill-yellow">Típico: 400px–1200px</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">perspective</span>: <span class="val">none</span>; <span class="comment">/* sin perspectiva */</span><br>
+      <span class="prop">perspective</span>: <span class="val">200px</span>; <span class="comment">/* muy dramático */</span><br>
+      <span class="prop">perspective</span>: <span class="val">600px</span>; <span class="comment">/* moderado */</span><br>
+      <span class="prop">perspective</span>: <span class="val">1200px</span>; <span class="comment">/* sutil */</span><br><br>
+      <span class="comment">/* También existe la función perspective() dentro de transform: */</span><br>
+      <span class="prop">transform</span>: <span class="val">perspective(400px) rotateY(45deg)</span>;
+    </div>
+    <!-- Demo interactivo de perspective con slider -->
+    <div style="margin-top:1rem;background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+      <div class="pane-header">
+        <div class="pane-title">demo interactivo — perspectiva</div>
+        <div style="display:flex;align-items:center;gap:0.8rem">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">perspective:</span>
+          <input type="range" id="persp-slider" min="100" max="1500" value="400" style="width:120px;accent-color:var(--accent)">
+          <span style="font-family:var(--mono);font-size:0.72rem;color:var(--accent)" id="persp-val">400px</span>
+        </div>
+      </div>
+      <div class="preview-pane" id="prev-persp" style="perspective:400px;min-height:180px">
+        <div id="obj-persp" style="width:80px;height:80px;background:#ff6ab0;border-radius:8px;transform:rotateY(45deg);transition:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="perspective-origin">
+    <div class="section-header">
+      <div class="section-tag">// propiedad CSS</div>
+      <h2><code>perspective-origin</code></h2>
+      <p class="section-desc">Define el punto de fuga de la perspectiva — desde qué punto del padre "mira" el usuario. Por defecto es el centro. Cambiarlo es como mover la cámara lateralmente.</p>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">perspective-origin</span>: <span class="val">center</span>; <span class="comment">/* default = 50% 50% */</span><br>
+      <span class="prop">perspective-origin</span>: <span class="val">top left</span>;<br>
+      <span class="prop">perspective-origin</span>: <span class="val">25% 75%</span>;<br>
+      <span class="prop">perspective-origin</span>: <span class="val">0 0</span>; <span class="comment">/* esquina superior izq */</span>
+    </div>
+    <div id="pg-porigin" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('porigin')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('porigin')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-porigin" spellcheck="false">/* El padre tiene perspective: 400px */
+/* Prueba: perspective-origin: top left */
+.padre {
+  perspective-origin: top right;
+}
+.elemento {
+  transform: rotateY(45deg);
+
+  width: 70px;
+  height: 70px;
+  background: #6af0c8;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-porigin" style="perspective:400px;perspective-origin:top right">
+          <div class="preview-obj" id="obj-porigin" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:rotateY(45deg)"></div>
+          <span class="result-label" id="label-porigin">perspective-origin: top right</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="backface">
+    <div class="section-header">
+      <div class="section-tag">// propiedad CSS</div>
+      <h2><code>backface-visibility</code></h2>
+      <p class="section-desc">Controla si la cara trasera de un elemento 3D es visible cuando apunta hacia el usuario. Esencial para efectos de tarjeta volteada. <code>hidden</code> oculta la cara de atrás.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-yellow">visible (default)</span>
+      <span class="pill pill-green">hidden</span>
+      <span class="pill pill-blue">Clave para card flip</span>
+    </div>
+    <div class="syntax-box">
+      <span class="prop">backface-visibility</span>: <span class="val">visible</span>; <span class="comment">/* default */</span><br>
+      <span class="prop">backface-visibility</span>: <span class="val">hidden</span>; <span class="comment">/* oculta cara trasera */</span>
+    </div>
+    <!-- Demo especial de card flip -->
+    <div style="margin-top:1rem;background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+      <div class="pane-header">
+        <div class="pane-title">demo — card flip (hover para voltear)</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;min-height:160px;gap:3rem;padding:2rem">
+        <div>
+          <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-align:center;margin-bottom:0.8rem">backface-visibility: hidden</p>
+          <div class="card-flip-demo" style="perspective:600px">
+            <div class="card-flip-inner">
+              <div class="card-face card-front">🎴</div>
+              <div class="card-face card-back">✨</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-align:center;margin-bottom:0.8rem">backface-visibility: visible</p>
+          <div class="card-flip-demo" style="perspective:600px">
+            <div class="card-flip-inner">
+              <div class="card-face card-front" style="backface-visibility:visible">🎴</div>
+              <div class="card-face card-back" style="backface-visibility:visible">✨</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="pg-backface" class="playground" style="margin-top:1rem">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('backface')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('backface')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-backface" spellcheck="false">/* Prueba: backface-visibility: visible */
+.elemento {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+
+  width: 70px;
+  height: 70px;
+  background: #7c6aff;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div></div>
+        <div class="preview-pane" id="prev-backface" style="perspective:400px">
+          <div class="preview-obj" id="obj-backface" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:rotateY(180deg);backface-visibility:hidden"></div>
+          <span class="result-label" id="label-backface">backface-visibility: hidden</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       COMBINACIONES
+  ═══════════════════════════════════ -->
+  <div class="section-divider">combinaciones</div>
+
+  <section class="section" id="combos">
+    <div class="section-header">
+      <div class="section-tag">// múltiples transforms</div>
+      <h2>Combinando <code>transform</code></h2>
+      <p class="section-desc">Podés encadenar múltiples funciones en un solo <code>transform</code>, separadas por espacios. Se aplican de <strong>derecha a izquierda</strong> — el orden importa. <code>rotate → translate</code> no es igual que <code>translate → rotate</code>.</p>
+    </div>
+    <div class="info-pills">
+      <span class="pill pill-pink">El orden cambia el resultado</span>
+      <span class="pill pill-blue">Derecha a izquierda</span>
+      <span class="pill pill-yellow">Una sola propiedad</span>
+    </div>
+    <div class="syntax-box">
+      <span class="comment">/* Se aplican de derecha a izquierda */</span><br>
+      <span class="prop">transform</span>: <span class="val">rotate(45deg) scale(1.2) translateX(30px)</span>;<br><br>
+      <span class="comment">/* Este orden da resultado diferente: */</span><br>
+      <span class="prop">transform</span>: <span class="val">translateX(30px) scale(1.2) rotate(45deg)</span>;<br><br>
+      <span class="comment">/* INCORRECTO — no usar dos propiedades: */</span><br>
+      <span style="color:#ff5555;text-decoration:line-through">transform: rotate(45deg);<br>transform: scale(1.2); </span><span class="comment">/* la segunda sobreescribe la primera */</span>
+    </div>
+
+    <!-- Playground de combinaciones -->
+    <div id="pg-combos" class="playground">
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>&nbsp;&nbsp;editor.css</div>
+          <div class="pane-actions">
+            <button class="btn-small" onclick="resetEditor('combos')">reset</button>
+            <button class="btn-small btn-apply" onclick="applyCSS('combos')">▶ aplicar</button>
+          </div>
+        </div>
+        <textarea class="code-editor" id="ed-combos" spellcheck="false">/* Encadena las que quieras */
+.elemento {
+  transform: rotate(30deg) scale(1.3) translateX(40px);
+
+  width: 65px;
+  height: 65px;
+  background: #7c6aff;
+  border-radius: 8px;
+}</textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-combos">
+              <button class="shape-btn active" onclick="setShape('combos','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('combos','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('combos','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-combos" style="perspective:500px">
+          <div class="preview-ghost" id="ghost-combos" style="width:65px;height:65px;background:rgba(124,106,255,0.1);border-radius:8px;"></div>
+          <div class="preview-obj" id="obj-combos" style="width:65px;height:65px;background:#7c6aff;border-radius:8px;transform:rotate(30deg) scale(1.3) translateX(40px)"></div>
+          <span class="result-label" id="label-combos">rotate(30deg) scale(1.3) translateX(40px)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards de ejemplos listos -->
+    <div style="margin-top:1.8rem">
+      <div class="section-tag" style="margin-bottom:0.8rem">// ejemplos rápidos — click para cargar</div>
+      <div class="combo-grid">
+        <div class="combo-card" onclick="loadCombo('rotate(45deg) scale(0.8)')">
+          <div class="combo-header">rotate + scale</div>
+          <div class="combo-preview" style="perspective:400px">
+            <div style="width:50px;height:50px;background:var(--accent);border-radius:6px;transform:rotate(45deg) scale(0.8)"></div>
+          </div>
+          <div class="combo-code">rotate(45deg) scale(0.8)</div>
+        </div>
+        <div class="combo-card" onclick="loadCombo('translateX(40px) rotate(30deg)')">
+          <div class="combo-header">translate + rotate</div>
+          <div class="combo-preview">
+            <div style="width:50px;height:50px;background:var(--accent2);border-radius:6px;transform:translateX(40px) rotate(30deg)"></div>
+          </div>
+          <div class="combo-code">translateX(40px) rotate(30deg)</div>
+        </div>
+        <div class="combo-card" onclick="loadCombo('skewX(15deg) scale(1.2, 0.9)')">
+          <div class="combo-header">skew + scale no uniforme</div>
+          <div class="combo-preview">
+            <div style="width:60px;height:45px;background:var(--accent3);border-radius:4px;transform:skewX(15deg) scale(1.2, 0.9)"></div>
+          </div>
+          <div class="combo-code">skewX(15deg) scale(1.2, 0.9)</div>
+        </div>
+        <div class="combo-card" onclick="loadCombo('perspective(400px) rotateY(40deg) scale(1.1)')">
+          <div class="combo-header">perspective inline + rotateY</div>
+          <div class="combo-preview">
+            <div style="width:55px;height:55px;background:var(--accent4);border-radius:6px;transform:perspective(400px) rotateY(40deg) scale(1.1)"></div>
+          </div>
+          <div class="combo-code">perspective(400px) rotateY(40deg)</div>
+        </div>
+        <div class="combo-card" onclick="loadCombo('rotate(-10deg) translateY(-20px) scale(1.05)')">
+          <div class="combo-header">efecto hover clásico</div>
+          <div class="combo-preview">
+            <div style="width:55px;height:55px;background:#7c6aff;border-radius:10px;transform:rotate(-10deg) translateY(-20px) scale(1.05);box-shadow:0 12px 30px rgba(124,106,255,0.4)"></div>
+          </div>
+          <div class="combo-code">rotate(-10deg) translateY(-20px) scale(1.05)</div>
+        </div>
+        <div class="combo-card" onclick="loadCombo('scaleX(-1) rotate(10deg)')">
+          <div class="combo-header">espejo + rotación</div>
+          <div class="combo-preview">
+            <div style="width:55px;height:40px;background:var(--accent2);border-radius:4px;transform:scaleX(-1) rotate(10deg);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:0.7rem;color:white">CSS</div>
+          </div>
+          <div class="combo-code">scaleX(-1) rotate(10deg)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="padding:3rem 4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+    <div>
+      <p style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">// CSS Transforms — Guía Interactiva</p>
+      <p style="font-family:var(--mono);font-size:0.6rem;color:var(--text3);margin-top:0.3rem">Todos los ejemplos son editables en tiempo real</p>
+    </div>
+    <div style="display:flex;gap:0.5rem">
+      <span class="pill pill-blue">2D</span>
+      <span class="pill pill-green">3D</span>
+      <span class="pill pill-yellow">Interactivo</span>
+    </div>
+  </div>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>
