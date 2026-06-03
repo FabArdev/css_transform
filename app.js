@@ -1,6 +1,4 @@
 // ─── SCROLL & ACTIVE NAV ───
-// getBoundingClientRect gives position relative to viewport — always reliable.
-// We add main.scrollTop to convert to "scroll position" coordinates.
 
 const mainEl   = document.getElementById('main');
 const navItems = document.querySelectorAll('.nav-item');
@@ -15,24 +13,38 @@ const sections = [
   'combos'
 ];
 
-function getScrollTop(el) {
-  // Distance from top of #main scroll container to the element
-  return el.getBoundingClientRect().top - mainEl.getBoundingClientRect().top + mainEl.scrollTop;
+// Devuelve la distancia acumulada desde el tope de #main hasta el elemento.
+// Sube por offsetParent hasta encontrar #main.
+// Si no lo encuentra (edge case de layout), usa getBoundingClientRect como fallback.
+function offsetFromMain(el) {
+  let top = 0;
+  let node = el;
+  while (node && node !== mainEl) {
+    top += node.offsetTop;
+    node = node.offsetParent;
+  }
+  // Si no llegó a mainEl, fallback con getBoundingClientRect
+  if (node !== mainEl) {
+    return el.getBoundingClientRect().top
+      - mainEl.getBoundingClientRect().top
+      + mainEl.scrollTop;
+  }
+  return top;
 }
 
 function navTo(id) {
   const target = document.getElementById(id);
   if (!target) return;
-  mainEl.scrollTo({ top: getScrollTop(target) - 16, behavior: 'smooth' });
+  mainEl.scrollTo({ top: offsetFromMain(target) - 16, behavior: 'smooth' });
 }
 
 mainEl.addEventListener('scroll', () => {
   let active = 'hero';
-  const threshold = mainEl.getBoundingClientRect().top + 120; // px from top of viewport
+  const scrollPos = mainEl.scrollTop + 110;
   sections.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    if (el.getBoundingClientRect().top <= threshold) active = id;
+    if (offsetFromMain(el) <= scrollPos) active = id;
   });
   navItems.forEach(item => {
     item.classList.remove('active');
@@ -44,6 +56,13 @@ mainEl.addEventListener('scroll', () => {
 // ─── SHAPE STATE ───
 // Tracks current shape per playground id
 const shapeState = {};
+
+// ─── SAVE INITIAL EDITOR CONTENT AS DEFAULTS ───
+const defaults = {};
+document.querySelectorAll('.code-editor').forEach(ed => {
+  const id = ed.id.replace('ed-', '');
+  defaults[id] = ed.value;
+});
 
 // ─── PARSE CSS BLOCK ───
 function parseCSSBlock(css, selector = '.elemento') {
@@ -143,6 +162,9 @@ function applyCSS(id) {
   if (label && props['transform']) {
     label.textContent = `transform: ${props['transform']}`;
   }
+
+  // Sincronizar hover después de cada aplicación
+  syncHover(id);
 }
 
 // ─── RESET ───
@@ -152,7 +174,7 @@ function resetEditor(id) {
   editor.value = defaults[id];
   // Reset shape to square before applying
   setShape(id, 'square');
-  applyCSS(id);
+  applyCSS(id); // applyCSS ya llama syncHover internamente
 }
 
 // ─── SHAPES ───
@@ -237,16 +259,19 @@ document.getElementById('persp-slider').addEventListener('input', function() {
 function loadCombo(transformVal) {
   const ed = document.getElementById('ed-combos');
   if (!ed) return;
-  // Preserve current shape dimensions
   const obj   = document.getElementById('obj-combos');
   const shape = shapeState['combos'] || 'square';
-  const w = (obj && shape !== 'text') ? obj.style.width  || '65px' : '65px';
-  const h = (obj && shape !== 'text') ? obj.style.height || '65px' : '65px';
+  const w  = (obj && shape !== 'text') ? obj.style.width  || '65px' : '65px';
+  const h  = (obj && shape !== 'text') ? obj.style.height || '65px' : '65px';
   const bg = (obj && shape !== 'text') ? obj.style.background || '#7c6aff' : '#7c6aff';
   const br = (shape === 'circle') ? '50%' : (obj ? obj.style.borderRadius || '8px' : '8px');
+
+  // Poner transform directo en el bloque base — visible siempre, sin hover
+  // (las cards son comparación rápida, no demo de hover)
   ed.value = `.elemento {\n  transform: ${transformVal};\n\n  width: ${w};\n  height: ${h};\n  background: ${bg};\n  border-radius: ${br};\n}`;
   applyCSS('combos');
 }
+
 
 // ─── INJECT EDITOR HINTS (Ctrl+Enter tip) ───
 document.querySelectorAll('.playground .pane').forEach(pane => {
@@ -284,5 +309,105 @@ document.querySelectorAll('.code-editor').forEach(ed => {
   });
   ed.addEventListener('blur', function() {
     this.closest('.playground').style.outline = '';
+  });
+});
+
+
+// ─── HOVER desde el editor ───
+// Si el usuario escribe .elemento:hover { ... } en el editor,
+// el preview reacciona. Sin ese bloque, no pasa nada.
+
+function parseHoverBlock(css) {
+  const re = /\.elemento\s*:hover\s*\{([^}]*)\}/s;
+  const match = css.match(re);
+  if (!match) return null;
+  const props = {};
+  match[1].split(';').forEach(line => {
+    const [k, ...v] = line.split(':');
+    const key = k && k.trim();
+    const val = v.join(':').trim();
+    if (key && val) props[key] = val;
+  });
+  return Object.keys(props).length ? props : null;
+}
+
+// Guarda el estado base de estilos del objeto para poder restaurarlo
+function captureBaseStyle(obj) {
+  return obj.getAttribute('style') || '';
+}
+
+// Inicializar hover en todos los playgrounds al cargar y al aplicar CSS
+function syncHover(id) {
+  const ed   = document.getElementById(`ed-${id}`);
+  const obj  = document.getElementById(`obj-${id}`);
+  const prev = document.getElementById(`prev-${id}`);
+  if (!ed || !obj || !prev) return;
+
+  // Quitar listeners anteriores
+  if (prev._hoverEnter) prev.removeEventListener('mouseenter', prev._hoverEnter);
+  if (prev._hoverLeave) prev.removeEventListener('mouseleave', prev._hoverLeave);
+  prev._hoverEnter = null;
+  prev._hoverLeave = null;
+
+  const hoverProps = parseHoverBlock(ed.value);
+
+  // Buscar o crear badge — está en el pane-header del PANE que contiene prev-*
+  const pane = prev.parentElement; // .pane
+  const paneHeader = pane ? pane.querySelector('.pane-header .pane-title') : null;
+  let badge = pane ? pane.querySelector('.hover-badge') : null;
+
+  if (!hoverProps) {
+    // Sin :hover — limpiar
+    prev.style.cursor = '';
+    if (badge) badge.remove();
+    return;
+  }
+
+  // Crear badge si no existe
+  if (!badge && paneHeader) {
+    badge = document.createElement('span');
+    badge.className = 'hover-badge';
+    badge.style.marginLeft = '0.6rem';
+    paneHeader.appendChild(badge);
+  }
+  if (badge) badge.textContent = ':hover ▸';
+
+  prev.style.cursor = 'pointer';
+
+  // Al entrar: aplicar props del :hover encima del estado actual
+  prev._hoverEnter = () => {
+    // Re-parsear en el momento para tener el valor más reciente
+    const liveHover = parseHoverBlock(ed.value);
+    if (!liveHover) return;
+    Object.entries(liveHover).forEach(([k, v]) => {
+      obj.style[camelCase(k)] = v;
+    });
+  };
+
+  // Al salir: restaurar el estado base (.elemento sin hover)
+  prev._hoverLeave = () => {
+    const baseProps = parseCSSBlock(ed.value, '.elemento');
+    // Lista de todas las props que el :hover pudo haber cambiado
+    const liveHover = parseHoverBlock(ed.value) || {};
+    Object.keys(liveHover).forEach(k => {
+      // Restaurar al valor base, o '' si no estaba definido
+      obj.style[camelCase(k)] = baseProps[k] || '';
+    });
+  };
+
+  prev.addEventListener('mouseenter', prev._hoverEnter);
+  prev.addEventListener('mouseleave', prev._hoverLeave);
+}
+
+// Inicializar al cargar — aplicar estado base de cada editor
+document.querySelectorAll('.code-editor').forEach(ed => {
+  const id = ed.id.replace('ed-', '');
+  // Aplicar el CSS base (sin hover) al objeto de preview
+  applyCSS(id); // esto también llama syncHover internamente
+  // Re-sincronizar mientras escribe (debounce 350ms)
+  let t;
+  ed.addEventListener('input', () => {
+    clearTimeout(t);
+    t = setTimeout(() => syncHover(id), 350);
   });
 });

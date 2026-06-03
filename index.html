@@ -116,14 +116,16 @@
             <button class="btn-small btn-apply" onclick="applyCSS('translate')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-translate" spellcheck="false">/* Edita cualquier propiedad CSS */
+        <textarea class="code-editor" id="ed-translate" spellcheck="false">/* Mueve sin alterar el flujo del documento */
+/* Prueba: translate(0, -40px) o translate(-30px, 20px) */
 .elemento {
-  transform: translate(60px, -30px);
-
   width: 70px;
   height: 70px;
   background: #7c6aff;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: translate(60px, -30px);
 }</textarea>
       </div>
       <div class="pane">
@@ -139,7 +141,7 @@
         </div>
         <div class="preview-pane" id="prev-translate">
           <div class="preview-ghost" id="ghost-translate" style="width:70px;height:70px;background:rgba(124,106,255,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-translate" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:translate(60px,-30px)"></div>
+          <div class="preview-obj" id="obj-translate" style="width:70px;height:70px;background:#7c6aff;border-radius:8px"></div>
           <span class="result-label" id="label-translate">transform: translate(60px, -30px)</span>
         </div>
       </div>
@@ -199,14 +201,16 @@
             <button class="btn-small btn-apply" onclick="applyCSS('translateZ')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-translateZ" spellcheck="false">/* El padre ya tiene perspective: 400px */
+        <textarea class="code-editor" id="ed-translateZ" spellcheck="false">/* perspective: 180px está en el padre */
+/* Prueba: translateZ(-80px) para alejar */
 .elemento {
-  transform: translateZ(80px);
-
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   background: #6af0c8;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: translateZ(100px);
 }</textarea>
       </div>
       <div class="pane">
@@ -219,8 +223,8 @@
             </div>
           </div>
         </div>
-        <div class="preview-pane" id="prev-translateZ" style="perspective:400px">
-          <div class="preview-obj" id="obj-translateZ" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:translateZ(80px)"></div>
+        <div class="preview-pane" id="prev-translateZ" style="perspective:180px">
+          <div class="preview-obj" id="obj-translateZ" style="width:80px;height:80px;background:#6af0c8;border-radius:8px"></div>
           <span class="result-label" id="label-translateZ">transform: translateZ(80px)</span>
         </div>
       </div>
@@ -256,12 +260,13 @@
         </div>
         <textarea class="code-editor" id="ed-translateXY" spellcheck="false">/* Prueba: translateY(-50px) */
 .elemento {
-  transform: translateX(80px);
-
   width: 65px;
   height: 65px;
   background: #ff6ab0;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: translateX(80px);
 }</textarea>
       </div>
       <div class="pane">
@@ -276,7 +281,7 @@
         </div>
         <div class="preview-pane" id="prev-translateXY">
           <div class="preview-ghost" id="ghost-translateXY" style="width:65px;height:65px;background:rgba(255,106,176,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-translateXY" style="width:65px;height:65px;background:#ff6ab0;border-radius:8px;transform:translateX(80px)"></div>
+          <div class="preview-obj" id="obj-translateXY" style="width:65px;height:65px;background:#ff6ab0;border-radius:8px"></div>
           <span class="result-label" id="label-translateXY">transform: translateX(80px)</span>
         </div>
       </div>
@@ -335,14 +340,15 @@
             <button class="btn-small btn-apply" onclick="applyCSS('scale')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-scale" spellcheck="false">/* Prueba scale(-1, 1) para espejo */
+        <textarea class="code-editor" id="ed-scale" spellcheck="false">/* Prueba: scale(-1, 1) para espejo horizontal */
 .elemento {
-  transform: scale(1.6);
-
   width: 60px;
   height: 60px;
   background: #ff6ab0;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: scale(1.6);
 }</textarea>
       </div>
       <div class="pane">
@@ -357,7 +363,7 @@
         </div>
         <div class="preview-pane" id="prev-scale">
           <div class="preview-ghost" id="ghost-scale" style="width:60px;height:60px;background:rgba(255,106,176,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-scale" style="width:60px;height:60px;background:#ff6ab0;border-radius:8px;transform:scale(1.6)"></div>
+          <div class="preview-obj" id="obj-scale" style="width:60px;height:60px;background:#ff6ab0;border-radius:8px"></div>
           <span class="result-label" id="label-scale">transform: scale(1.6)</span>
         </div>
       </div>
@@ -420,12 +426,13 @@
         </div>
         <textarea class="code-editor" id="ed-scaleXY" spellcheck="false">/* Prueba: scaleX(-1) para espejo */
 .elemento {
-  transform: scaleX(2);
-
   width: 55px;
   height: 55px;
   background: #ffd06a;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: scaleX(2);
 }</textarea>
       </div>
       <div class="pane">
@@ -440,7 +447,7 @@
         </div>
         <div class="preview-pane" id="prev-scaleXY">
           <div class="preview-ghost" id="ghost-scaleXY" style="width:55px;height:55px;background:rgba(255,208,106,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-scaleXY" style="width:55px;height:55px;background:#ffd06a;border-radius:8px;transform:scaleX(2)"></div>
+          <div class="preview-obj" id="obj-scaleXY" style="width:55px;height:55px;background:#ffd06a;border-radius:8px"></div>
           <span class="result-label" id="label-scaleXY">transform: scaleX(2)</span>
         </div>
       </div>
@@ -474,14 +481,15 @@
             <button class="btn-small btn-apply" onclick="applyCSS('scaleZ')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-scaleZ" spellcheck="false">/* scaleZ se ve con rotateX */
+        <textarea class="code-editor" id="ed-scaleZ" spellcheck="false">/* scaleZ solo se nota combinado con rotación 3D */
 .elemento {
-  transform: rotateX(50deg) scaleZ(2);
-
   width: 65px;
   height: 65px;
   background: #6af0c8;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: rotateX(50deg) scaleZ(2);
 }</textarea>
       </div>
       <div class="pane">
@@ -494,8 +502,8 @@
             </div>
           </div>
         </div>
-        <div class="preview-pane" id="prev-scaleZ" style="perspective:400px">
-          <div class="preview-obj" id="obj-scaleZ" style="width:65px;height:65px;background:#6af0c8;border-radius:8px;transform:rotateX(50deg) scaleZ(2)"></div>
+        <div class="preview-pane" id="prev-scaleZ" style="perspective:200px">
+          <div class="preview-obj" id="obj-scaleZ" style="width:65px;height:65px;background:#6af0c8;border-radius:8px"></div>
           <span class="result-label" id="label-scaleZ">transform: rotateX(50deg) scaleZ(2)</span>
         </div>
       </div>
@@ -533,14 +541,15 @@
             <button class="btn-small btn-apply" onclick="applyCSS('rotate')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-rotate" spellcheck="false">/* Prueba: rotate(0.125turn) */
+        <textarea class="code-editor" id="ed-rotate" spellcheck="false">/* Prueba: rotate(0.25turn) o rotate(-90deg) */
 .elemento {
-  transform: rotate(45deg);
-
   width: 65px;
   height: 65px;
   background: #ffd06a;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: rotate(45deg);
 }</textarea>
       </div>
       <div class="pane">
@@ -555,7 +564,7 @@
         </div>
         <div class="preview-pane" id="prev-rotate">
           <div class="preview-ghost" id="ghost-rotate" style="width:65px;height:65px;background:rgba(255,208,106,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-rotate" style="width:65px;height:65px;background:#ffd06a;border-radius:8px;transform:rotate(45deg)"></div>
+          <div class="preview-obj" id="obj-rotate" style="width:65px;height:65px;background:#ffd06a;border-radius:8px"></div>
           <span class="result-label" id="label-rotate">transform: rotate(45deg)</span>
         </div>
       </div>
@@ -586,14 +595,16 @@
             <button class="btn-small btn-apply" onclick="applyCSS('rotateXY')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-rotateXY" spellcheck="false">/* Prueba rotateX(60deg) */
+        <textarea class="code-editor" id="ed-rotateXY" spellcheck="false">/* perspective: 200px en el padre */
+/* Prueba: rotateX(60deg) */
 .elemento {
-  transform: rotateY(50deg);
-
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   background: #6af0c8;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: rotateY(50deg);
 }</textarea>
       </div>
       <div class="pane">
@@ -606,8 +617,8 @@
             </div>
           </div>
         </div>
-        <div class="preview-pane" id="prev-rotateXY" style="perspective:400px">
-          <div class="preview-obj" id="obj-rotateXY" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:rotateY(50deg)"></div>
+        <div class="preview-pane" id="prev-rotateXY" style="perspective:200px">
+          <div class="preview-obj" id="obj-rotateXY" style="width:90px;height:90px;background:#6af0c8;border-radius:8px"></div>
           <span class="result-label" id="label-rotateXY">transform: rotateY(50deg)</span>
         </div>
       </div>
@@ -634,20 +645,30 @@
             <button class="btn-small btn-apply" onclick="applyCSS('rotate3d')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-rotate3d" spellcheck="false">/* Vector diagonal (1,1,0) a 45° */
+        <textarea class="code-editor" id="ed-rotate3d" spellcheck="false">/* perspective: 200px en el padre */
+/* Prueba: rotate3d(0, 1, 0, 60deg) */
 .elemento {
-  transform: rotate3d(1, 1, 0, 45deg);
-
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   background: #7c6aff;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: rotate3d(1, 1, 0, 45deg);
 }</textarea>
       </div>
       <div class="pane">
-        <div class="pane-header"><div class="pane-title">preview</div></div>
-        <div class="preview-pane" id="prev-rotate3d" style="perspective:400px">
-          <div class="preview-obj" id="obj-rotate3d" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:rotate3d(1,1,0,45deg)"></div>
+        <div class="pane-header"><div class="pane-title">preview</div>
+          <div class="pane-actions">
+            <div class="shape-selector" id="shapes-rotate3d">
+              <button class="shape-btn active" onclick="setShape('rotate3d','square')">▪</button>
+              <button class="shape-btn" onclick="setShape('rotate3d','circle')">●</button>
+              <button class="shape-btn" onclick="setShape('rotate3d','text')">T</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-pane" id="prev-rotate3d" style="perspective:200px">
+          <div class="preview-obj" id="obj-rotate3d" style="width:90px;height:90px;background:#7c6aff;border-radius:8px"></div>
           <span class="result-label" id="label-rotate3d">transform: rotate3d(1,1,0,45deg)</span>
         </div>
       </div>
@@ -687,12 +708,13 @@
         </div>
         <textarea class="code-editor" id="ed-skew" spellcheck="false">/* Prueba: skew(20deg, 10deg) */
 .elemento {
-  transform: skew(20deg);
-
   width: 80px;
   height: 60px;
   background: #ff6ab0;
   border-radius: 4px;
+}
+.elemento:hover {
+  transform: skew(20deg);
 }</textarea>
       </div>
       <div class="pane">
@@ -707,7 +729,7 @@
         </div>
         <div class="preview-pane" id="prev-skew">
           <div class="preview-ghost" id="ghost-skew" style="width:80px;height:60px;background:rgba(255,106,176,0.1);border-radius:4px;"></div>
-          <div class="preview-obj" id="obj-skew" style="width:80px;height:60px;background:#ff6ab0;border-radius:4px;transform:skew(20deg)"></div>
+          <div class="preview-obj" id="obj-skew" style="width:80px;height:60px;background:#ff6ab0;border-radius:4px"></div>
           <span class="result-label" id="label-skew">transform: skew(20deg)</span>
         </div>
       </div>
@@ -763,12 +785,13 @@
         </div>
         <textarea class="code-editor" id="ed-skewXY" spellcheck="false">/* Prueba: skewY(20deg) */
 .elemento {
-  transform: skewX(30deg);
-
   width: 75px;
   height: 60px;
   background: #7c6aff;
   border-radius: 4px;
+}
+.elemento:hover {
+  transform: skewX(30deg);
 }</textarea>
       </div>
       <div class="pane">
@@ -783,7 +806,7 @@
         </div>
         <div class="preview-pane" id="prev-skewXY">
           <div class="preview-ghost" id="ghost-skewXY" style="width:75px;height:60px;background:rgba(124,106,255,0.1);border-radius:4px;"></div>
-          <div class="preview-obj" id="obj-skewXY" style="width:75px;height:60px;background:#7c6aff;border-radius:4px;transform:skewX(30deg)"></div>
+          <div class="preview-obj" id="obj-skewXY" style="width:75px;height:60px;background:#7c6aff;border-radius:4px"></div>
           <span class="result-label" id="label-skewXY">transform: skewX(30deg)</span>
         </div>
       </div>
@@ -843,21 +866,22 @@
             <button class="btn-small btn-apply" onclick="applyCSS('matrix')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-matrix" spellcheck="false">/* Escala + rotación combinadas */
+        <textarea class="code-editor" id="ed-matrix" spellcheck="false">/* Combina scale + rotate + translate en una sola función */
 .elemento {
-  transform: matrix(1.2, 0.4, -0.4, 1.2, 30, -20);
-
   width: 65px;
   height: 65px;
   background: #7c6aff;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: matrix(1.2, 0.4, -0.4, 1.2, 30, -20);
 }</textarea>
       </div>
       <div class="pane">
         <div class="pane-header"><div class="pane-title">preview</div></div>
         <div class="preview-pane" id="prev-matrix">
           <div class="preview-ghost" id="ghost-matrix" style="width:65px;height:65px;background:rgba(124,106,255,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-matrix" style="width:65px;height:65px;background:#7c6aff;border-radius:8px;transform:matrix(1.2,0.4,-0.4,1.2,30,-20)"></div>
+          <div class="preview-obj" id="obj-matrix" style="width:65px;height:65px;background:#7c6aff;border-radius:8px"></div>
           <span class="result-label" id="label-matrix">transform: matrix(...)</span>
         </div>
       </div>
@@ -889,25 +913,26 @@
             <button class="btn-small btn-apply" onclick="applyCSS('matrix3d')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-matrix3d" spellcheck="false">/* rotateY(40deg) en matrix3d */
+        <textarea class="code-editor" id="ed-matrix3d" spellcheck="false">/* rotateY(40deg) expresado como matrix3d */
 .elemento {
+  width: 70px;
+  height: 70px;
+  background: #6af0c8;
+  border-radius: 8px;
+}
+.elemento:hover {
   transform: matrix3d(
     0.766,0,0.643,0,
     0,1,0,0,
     -0.643,0,0.766,0,
     0,0,0,1
   );
-
-  width: 70px;
-  height: 70px;
-  background: #6af0c8;
-  border-radius: 8px;
 }</textarea>
       </div>
       <div class="pane">
         <div class="pane-header"><div class="pane-title">preview</div></div>
-        <div class="preview-pane" id="prev-matrix3d" style="perspective:500px">
-          <div class="preview-obj" id="obj-matrix3d" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:matrix3d(0.766,0,0.643,0,0,1,0,0,-0.643,0,0.766,0,0,0,0,1)"></div>
+        <div class="preview-pane" id="prev-matrix3d" style="perspective:220px">
+          <div class="preview-obj" id="obj-matrix3d" style="width:70px;height:70px;background:#6af0c8;border-radius:8px"></div>
           <span class="result-label" id="label-matrix3d">transform: matrix3d(...)</span>
         </div>
       </div>
@@ -946,22 +971,24 @@
             <button class="btn-small btn-apply" onclick="applyCSS('origin')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-origin" spellcheck="false">/* Prueba: transform-origin: top left */
+        <textarea class="code-editor" id="ed-origin" spellcheck="false">/* Prueba: transform-origin: top left
+   o transform-origin: 0 0 */
 .elemento {
-  transform: rotate(45deg);
-  transform-origin: bottom right;
-
   width: 70px;
   height: 70px;
   background: #ffd06a;
   border-radius: 8px;
+  transform-origin: bottom right;
+}
+.elemento:hover {
+  transform: rotate(45deg);
 }</textarea>
       </div>
       <div class="pane">
         <div class="pane-header"><div class="pane-title">preview</div></div>
         <div class="preview-pane" id="prev-origin">
           <div class="preview-ghost" id="ghost-origin" style="width:70px;height:70px;background:rgba(255,208,106,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-origin" style="width:70px;height:70px;background:#ffd06a;border-radius:8px;transform:rotate(45deg);transform-origin:bottom right"></div>
+          <div class="preview-obj" id="obj-origin" style="width:70px;height:70px;background:#ffd06a;border-radius:8px"></div>
           <span class="result-label" id="label-origin">transform-origin: bottom right</span>
         </div>
       </div>
@@ -983,6 +1010,32 @@
       <span class="prop">transform-style</span>: <span class="val">flat</span>; <span class="comment">/* default — hijos se aplanan */</span><br>
       <span class="prop">transform-style</span>: <span class="val">preserve-3d</span>; <span class="comment">/* hijos mantienen 3D */</span>
     </div>
+    <!-- transform-style demo: comparación preserve-3d vs flat -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1rem">
+      <div class="pane-header">
+        <div class="pane-title">demo — preserve-3d vs flat (hover)</div>
+      </div>
+      <div style="display:flex;gap:1px;background:var(--border)">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:1rem;background:var(--surface2)">
+          <p style="font-family:var(--mono);font-size:0.6rem;color:var(--accent3)">preserve-3d</p>
+          <div class="tstyle-scene" style="perspective:300px">
+            <div class="tstyle-parent tstyle-preserve">
+              <div class="tstyle-child"></div>
+            </div>
+          </div>
+          <p style="font-family:var(--mono);font-size:0.58rem;color:var(--text3);text-align:center">hijo mantiene<br>posición 3D</p>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:1rem;background:var(--surface2)">
+          <p style="font-family:var(--mono);font-size:0.6rem;color:var(--accent2)">flat</p>
+          <div class="tstyle-scene" style="perspective:300px">
+            <div class="tstyle-parent tstyle-flat">
+              <div class="tstyle-child"></div>
+            </div>
+          </div>
+          <p style="font-family:var(--mono);font-size:0.58rem;color:var(--text3);text-align:center">hijo se aplana<br>al plano del padre</p>
+        </div>
+      </div>
+    </div>
     <div id="pg-tstyle" class="playground">
       <div class="pane">
         <div class="pane-header">
@@ -992,21 +1045,22 @@
             <button class="btn-small btn-apply" onclick="applyCSS('tstyle')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-tstyle" spellcheck="false">/* Cambia a: transform-style: flat */
+        <textarea class="code-editor" id="ed-tstyle" spellcheck="false">/* Cambia preserve-3d por flat y nota la diferencia */
 .elemento {
-  transform: rotateY(40deg);
-  transform-style: preserve-3d;
-
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   background: #7c6aff;
   border-radius: 8px;
+  transform-style: preserve-3d;
+}
+.elemento:hover {
+  transform: rotateY(45deg);
 }</textarea>
       </div>
       <div class="pane">
         <div class="pane-header"><div class="pane-title">preview</div></div>
-        <div class="preview-pane" id="prev-tstyle" style="perspective:400px">
-          <div class="preview-obj" id="obj-tstyle" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:rotateY(40deg);transform-style:preserve-3d"></div>
+        <div class="preview-pane" id="prev-tstyle" style="perspective:220px">
+          <div class="preview-obj" id="obj-tstyle" style="width:80px;height:80px;background:#7c6aff;border-radius:8px"></div>
           <span class="result-label" id="label-tstyle">transform-style: preserve-3d</span>
         </div>
       </div>
@@ -1043,7 +1097,7 @@
         </div>
       </div>
       <div class="preview-pane" id="prev-persp" style="perspective:400px;min-height:180px">
-        <div id="obj-persp" style="width:80px;height:80px;background:#ff6ab0;border-radius:8px;transform:rotateY(45deg);transition:none"></div>
+        <div id="obj-persp" style="width:80px;height:80px;background:#ff6ab0;border-radius:8px;transform:rotateY(45deg)"></div>
       </div>
     </div>
   </section>
@@ -1069,24 +1123,25 @@
             <button class="btn-small btn-apply" onclick="applyCSS('porigin')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-porigin" spellcheck="false">/* El padre tiene perspective: 400px */
+        <textarea class="code-editor" id="ed-porigin" spellcheck="false">/* El padre tiene perspective: 220px */
 /* Prueba: perspective-origin: top left */
 .padre {
   perspective-origin: top right;
 }
 .elemento {
-  transform: rotateY(45deg);
-
   width: 70px;
   height: 70px;
   background: #6af0c8;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: rotateY(45deg);
 }</textarea>
       </div>
       <div class="pane">
         <div class="pane-header"><div class="pane-title">preview</div></div>
-        <div class="preview-pane" id="prev-porigin" style="perspective:400px;perspective-origin:top right">
-          <div class="preview-obj" id="obj-porigin" style="width:70px;height:70px;background:#6af0c8;border-radius:8px;transform:rotateY(45deg)"></div>
+        <div class="preview-pane" id="prev-porigin" style="perspective:220px;perspective-origin:top right">
+          <div class="preview-obj" id="obj-porigin" style="width:70px;height:70px;background:#6af0c8;border-radius:8px"></div>
           <span class="result-label" id="label-porigin">perspective-origin: top right</span>
         </div>
       </div>
@@ -1143,21 +1198,23 @@
             <button class="btn-small btn-apply" onclick="applyCSS('backface')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-backface" spellcheck="false">/* Prueba: backface-visibility: visible */
+        <textarea class="code-editor" id="ed-backface" spellcheck="false">/* Con hidden: cara trasera invisible
+   Con visible: se ve el reverso espejado */
 .elemento {
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   background: #7c6aff;
   border-radius: 8px;
+  backface-visibility: hidden;
+}
+.elemento:hover {
+  transform: rotateY(160deg);
 }</textarea>
       </div>
       <div class="pane">
         <div class="pane-header"><div class="pane-title">preview</div></div>
-        <div class="preview-pane" id="prev-backface" style="perspective:400px">
-          <div class="preview-obj" id="obj-backface" style="width:70px;height:70px;background:#7c6aff;border-radius:8px;transform:rotateY(180deg);backface-visibility:hidden"></div>
+        <div class="preview-pane" id="prev-backface" style="perspective:220px">
+          <div class="preview-obj" id="obj-backface" style="width:80px;height:80px;background:#7c6aff;border-radius:8px"></div>
           <span class="result-label" id="label-backface">backface-visibility: hidden</span>
         </div>
       </div>
@@ -1199,14 +1256,16 @@
             <button class="btn-small btn-apply" onclick="applyCSS('combos')">▶ aplicar</button>
           </div>
         </div>
-        <textarea class="code-editor" id="ed-combos" spellcheck="false">/* Encadena las que quieras */
+        <textarea class="code-editor" id="ed-combos" spellcheck="false">/* El orden importa: cambia rotate y translateX
+   y observá cómo varía el resultado */
 .elemento {
-  transform: rotate(30deg) scale(1.3) translateX(40px);
-
   width: 65px;
   height: 65px;
   background: #7c6aff;
   border-radius: 8px;
+}
+.elemento:hover {
+  transform: rotate(30deg) scale(1.3) translateX(40px);
 }</textarea>
       </div>
       <div class="pane">
@@ -1221,7 +1280,7 @@
         </div>
         <div class="preview-pane" id="prev-combos" style="perspective:500px">
           <div class="preview-ghost" id="ghost-combos" style="width:65px;height:65px;background:rgba(124,106,255,0.1);border-radius:8px;"></div>
-          <div class="preview-obj" id="obj-combos" style="width:65px;height:65px;background:#7c6aff;border-radius:8px;transform:rotate(30deg) scale(1.3) translateX(40px)"></div>
+          <div class="preview-obj" id="obj-combos" style="width:65px;height:65px;background:#7c6aff;border-radius:8px"></div>
           <span class="result-label" id="label-combos">rotate(30deg) scale(1.3) translateX(40px)</span>
         </div>
       </div>
